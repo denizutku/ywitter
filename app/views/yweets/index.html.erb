@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Yweets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Yweet</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @yweets.each do |yweet| %>
+      <tr>
+        <td><%= yweet.yweet %></td>
+        <td><%= link_to 'Show', yweet %></td>
+        <td><%= link_to 'Edit', edit_yweet_path(yweet) %></td>
+        <td><%= link_to 'Destroy', yweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Yweet', new_yweet_path %>
