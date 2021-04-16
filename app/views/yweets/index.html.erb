@@ -2,7 +2,9 @@
 
 <h1>Yweets</h1>
 
-<table>
+<%
+=begin%>
+ <table>
   <thead>
     <tr>
       <th>Yweet</th>
@@ -11,16 +13,34 @@
   </thead>
 
   <tbody>
-    <% @yweets.each do |yweet| %>
+    
       <tr>
-        <td><%= yweet.yweet %></td>
+        <td></td>
         <td><%= link_to 'Show', yweet %></td>
         <td><%= link_to 'Edit', edit_yweet_path(yweet) %></td>
         <td><%= link_to 'Destroy', yweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-    <% end %>
+    
   </tbody>
-</table>
+</table> 
+<%
+=end%>
+
+<% @yweets.each do |yweet| %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted"><%= current_user.id %></h6>
+      <p class="card-text"><%= yweet.yweet %></p>
+      <p class="card-subtitle mb-2 text-muted"><%= yweet.created_at %> <b>Favs:</b> <%= yweet.likes.size %></p>
+      <% if yweet.likes.where(user_id:current_user.id).empty? %>
+        <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Like', like_yweet_path(yweet) %></p>
+      <% else %>
+        <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Unlike', unlike_yweet_path(yweet) %></p>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>
 
 <br>
 
