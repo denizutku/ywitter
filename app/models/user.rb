@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :yweets, dependent: :destroy
+  has_many :likes 
 
   has_many :active_relationships, class_name: "Relationshop",
                                   foreign_key: "follower_id",
