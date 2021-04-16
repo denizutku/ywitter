@@ -56,6 +56,18 @@ class YweetsController < ApplicationController
     end
   end
 
+  def like
+    yweet = Yweet.find(params[:id])
+    Like.create(user_id: current_user.id, yweet_id:yweet.id)
+    redirect_to root_path, alert: "Liked!"
+  end
+
+  def unlike
+    yweet = Yweet.find(params[:id])
+    like = Like.where(user_id: current_user.id, yweet_id:yweet.id).first.destroy
+    redirect_to root_path, alert: "Unliked!"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_yweet
