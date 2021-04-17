@@ -4,6 +4,11 @@
   <strong>user:</strong>
   <%= @user.email %>
 
+  <strong>followers:</strong>
+  <%= @user.favoritors.size %>
+  <strong>followed:</strong>
+  <%= @user.all_favorited.size %>
+
 
   <% if current_user == @user %>
     <p> Edit profile falan filan</p>
