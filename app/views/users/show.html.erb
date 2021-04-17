@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>user:</strong>
+  <%= @user.email %>
+
+
+  <% if current_user == @user %>
+    <p> Edit profile falan filan</p>
+  <% else %>
+    <%= link_to 'Follow', follow_user_path, class: "" %>
+  <% end %>
+</p>
+
+

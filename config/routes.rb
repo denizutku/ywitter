@@ -6,5 +6,8 @@ Rails.application.routes.draw do
 
   get 'yweets/:id/like', to:  "yweets#like", as: :like_yweet
   get 'yweets/:id/unlike', to: "yweets#unlike", as: :unlike_yweet
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get 'users/:id/', to: "users#show", as: :get_user_profile
+  get 'users/:id/follow', to: "users#follow", as: :follow_user
+  
 end

@@ -29,15 +29,16 @@
 <% @yweets.each do |yweet| %>
   <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h6 class="card-subtitle mb-2 text-muted"><%= current_user.id %></h6>
+      <%= link_to yweet.user.email, get_user_profile_path(yweet.user), class: "card-subtitle mb-2 text-muted" %>
       <p class="card-text"><%= yweet.yweet %></p>
       <p class="card-subtitle mb-2 text-muted"><%= yweet.created_at %> <b>Favs:</b> <%= yweet.likes.size %></p>
-      <% if yweet.likes.where(user_id:current_user.id).empty? %>
-        <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Like', like_yweet_path(yweet) %></p>
-      <% else %>
-        <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Unlike', unlike_yweet_path(yweet) %></p>
+      <% if user_signed_in? %>
+        <% if yweet.likes.where(user_id:current_user.id).empty? %>
+          <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Like', like_yweet_path(yweet) %></p>
+        <% else %>
+          <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Unlike', unlike_yweet_path(yweet) %></p>
+        <% end %>
       <% end %>
-
     </div>
   </div>
 <% end %>
