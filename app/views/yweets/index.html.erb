@@ -1,42 +1,19 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Yweets</h1>
-
-<%
-=begin%>
- <table>
-  <thead>
-    <tr>
-      <th>Yweet</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    
-      <tr>
-        <td></td>
-        <td><%= link_to 'Show', yweet %></td>
-        <td><%= link_to 'Edit', edit_yweet_path(yweet) %></td>
-        <td><%= link_to 'Destroy', yweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    
-  </tbody>
-</table> 
-<%
-=end%>
-
 <% @yweets.each do |yweet| %>
-  <div class="card" style="width: 18rem;">
+  <div class="card" style="width: 18rem; margin-bottom: 1rem;">
+
     <div class="card-body">
-      <%= link_to yweet.user.email, get_user_profile_path(yweet.user), class: "card-subtitle mb-2 text-muted" %>
+      <%= link_to yweet.user.username, get_user_profile_path(yweet.user), class: "card-subtitle mb-2 text-muted" %>
       <p class="card-text"><%= yweet.yweet %></p>
-      <p class="card-subtitle mb-2 text-muted"><%= yweet.created_at %> <b>Favs:</b> <%= yweet.likes.size %></p>
+    </div>
+
+    <div class="card-footer">
+      <small class="text-muted"><%= yweet.created_at.strftime("%d/%m/%Y %k:%M") %> <b>Likes:</b> <%= yweet.likes.size %></small>
       <% if user_signed_in? %>
         <% if yweet.likes.where(user_id:current_user.id).empty? %>
-          <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Like', like_yweet_path(yweet) %></p>
+          <button class="btn btn-outline-primary btn-sm"> <%= link_to 'Like', like_yweet_path(yweet) %></button>
         <% else %>
-          <p class="card-subtitle mb-2 text-muted"> <%= link_to 'Unlike', unlike_yweet_path(yweet) %></p>
+          <button class="btn btn-outline-secondary btn-sm"> <%= link_to 'Unlike', unlike_yweet_path(yweet) %></button>
         <% end %>
       <% end %>
     </div>
@@ -44,5 +21,3 @@
 <% end %>
 
 <br>
-
-<%= link_to 'New Yweet', new_yweet_path %>
