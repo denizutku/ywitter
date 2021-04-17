@@ -8,7 +8,11 @@
   <% if current_user == @user %>
     <p> Edit profile falan filan</p>
   <% else %>
-    <%= link_to 'Follow', follow_user_path, class: "" %>
+    <% if current_user.favorited?(@user) %>
+      <p>Already followed!</p>
+    <% else %>
+      <%= link_to 'Follow', follow_user_path, class: "" %>
+    <% end %>
   <% end %>
 </p>
 

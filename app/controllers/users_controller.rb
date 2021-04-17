@@ -5,8 +5,8 @@ class UsersController < ApplicationController
 
     def follow
         @user = User.find(params[:id])
-        Relationship.create(follower_id:current_user.id, followed_id:@user.id)
-        redirect_to get_user_profile, alert: "Followed!"
+        current_user.favorite(@user)
+        redirect_to get_user_profile_path, alert: "Followed!"
     end
 end
   
