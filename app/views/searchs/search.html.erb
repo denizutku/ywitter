@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<% if @yweets.present? %>
+
+  Found yweets
+
+  <% @yweets.each do |yweet| %>
+    <div class="card" style="width: 18rem; margin-bottom: 1rem;">
+
+      <div class="card-body">
+        <%= link_to yweet.user.username, get_user_profile_path(yweet.user), class: "card-subtitle mb-2 text-muted" %>
+        <p class="card-text"><%= yweet.yweet %></p>
+      </div>
+
+      <div class="card-footer">
+        <small class="text-muted"><%= yweet.created_at.strftime("%d/%m/%Y %k:%M") %> <b>Likes:</b> <%= yweet.likes.size %></small>
+        <% if user_signed_in? %>
+          <% if yweet.likes.where(user_id:current_user.id).empty? %>
+            <button class="btn btn-outline-primary btn-sm"> <%= link_to 'Like', like_yweet_path(yweet) %></button>
+          <% else %>
+            <button class="btn btn-outline-secondary btn-sm"> <%= link_to 'Unlike', unlike_yweet_path(yweet) %></button>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  
+<% else %>
+No yweets found  
+<% end %>
+
+
+<% if @users.present? %>
+
+  Found users
+
+  <% @users.each do |user| %>
+    <div class="card" style="width: 18rem; margin-bottom: 1rem;">
+
+      <div class="card-body">
+        <%= link_to user.username, get_user_profile_path(user), class: "card-subtitle mb-2 text-muted" %>
+        <p class="card-text"><%= user.email %></p>
+      </div>
+
+      <div class="card-footer">
+        <small class="text-muted"><strong>followers:</strong>
+    <%= user.favoritors.size %>
+    <strong>followed:</strong>
+    <%= user.all_favorited.size %></small>
+      </div>
+    </div>
+  <% end %>
+
+<% else %>
+No users found
+<% end %>
+
+<br>

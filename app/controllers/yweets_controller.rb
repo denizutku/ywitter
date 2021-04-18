@@ -76,6 +76,6 @@ class YweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def yweet_params
-      params.require(:yweet).permit(:yweet, :user_id)
+      params.require(:yweet).permit(:yweet, :user_id, :username)
     end
 end

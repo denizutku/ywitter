@@ -9,13 +9,14 @@
   <strong>followed:</strong>
   <%= @user.all_favorited.size %>
 
-
-  <% if current_user == @user %>
-  <% else %>
-    <% if current_user.favorited?(@user) %>
-      <p>Already followed!</p>
+  <% if user_signed_in? %>
+    <% if current_user == @user %>
     <% else %>
-      <%= link_to 'Follow', follow_user_path, class: "" %>
+      <% if current_user.favorited?(@user) %>
+        <p>Already followed!</p>
+      <% else %>
+        <%= link_to 'Follow', follow_user_path, class: "" %>
+      <% end %>
     <% end %>
   <% end %>
 </p>

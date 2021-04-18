@@ -11,5 +11,5 @@ class User < ApplicationRecord
   acts_as_favoritor
 
   validates_uniqueness_of :username
-                                              
+
 end

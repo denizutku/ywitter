@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'yweets/:id/like', to:  "yweets#like", as: :like_yweet
   get 'yweets/:id/unlike', to: "yweets#unlike", as: :unlike_yweet
 
+  get '/search', to: "searchs#search", as: :search
+
   get 'users/:id/', to: "users#show", as: :get_user_profile
   get 'users/:id/follow', to: "users#follow", as: :follow_user
   
