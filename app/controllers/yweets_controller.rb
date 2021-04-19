@@ -1,9 +1,9 @@
 class YweetsController < ApplicationController
-  before_action :set_yweet, only: %i[ show edit update destroy ]
+  before_action :set_yweet, only: %i[ show edit update destroy like unlike ]
 
   # GET /yweets or /yweets.json
   def index
-    @yweets = Yweet.all
+    @yweets = Yweet.all.includes(:user, :likes)
   end
 
   # GET /yweets/1 or /yweets/1.json
@@ -57,14 +57,12 @@ class YweetsController < ApplicationController
   end
 
   def like
-    yweet = Yweet.find(params[:id])
-    Like.create(user_id: current_user.id, yweet_id:yweet.id)
+    Like.create(user_id: current_user.id, yweet_id:@yweet.id)
     redirect_to root_path, alert: "Liked!"
   end
 
   def unlike
-    yweet = Yweet.find(params[:id])
-    like = Like.where(user_id: current_user.id, yweet_id:yweet.id).first.destroy
+    like = Like.where(user_id: current_user.id, yweet_id:@yweet.id).first.destroy
     redirect_to root_path, alert: "Unliked!"
   end
 
