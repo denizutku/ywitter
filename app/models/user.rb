@@ -4,12 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates_uniqueness_of :username
+  validates_presence_of :username
+  validates_presence_of :email
+  validates_presence_of :encrypted_password
+
   has_many :yweets, dependent: :destroy
   has_many :likes 
 
   acts_as_favoritable
   acts_as_favoritor
 
-  validates_uniqueness_of :username
 
 end
