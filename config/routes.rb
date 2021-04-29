@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  get 'index/home'
   devise_for :users, :controllers => { registrations: 'registrations' }, skip: [:sessions]
   resources :yweets
 
-  root to: "yweets#index"
+  root to: "index#home"
+
 
   devise_scope :user do
     # sessions
@@ -13,6 +15,8 @@ Rails.application.routes.draw do
 
   get 'yweets/:id/like', to:  "yweets#like", as: :like_yweet
   get 'yweets/:id/unlike', to: "yweets#unlike", as: :unlike_yweet
+  get '/home', to: "yweets#index", as: :logged_in_root
+
 
   get '/search', to: "searchs#search", as: :search
 
