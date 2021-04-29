@@ -1,5 +1,6 @@
 class YweetsController < ApplicationController
   before_action :set_yweet, only: %i[ show edit update destroy like unlike ]
+  before_action :authenticate_user!
 
   # GET /yweets or /yweets.json
   def index
