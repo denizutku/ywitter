@@ -74,18 +74,19 @@
                     </div>
                     <hr class="border-gray-800">
                     <!--first person who to follow-->
+                    <% @users.each do |user| %>
                     <div class="flex flex-shrink-0">
                         <div class="flex-1 ">
                             <div class="flex items-center w-48">
                                 <div>
-                                    <img class="inline-block h-10 w-auto rounded-full ml-4 mt-2" src="https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png" alt="">
+                                    <img class="inline-block h-10 w-auto rounded-full ml-4 mt-2" src="<%= user.image_url %>" alt="">
                                 </div>
                                 <div class="ml-3 mt-3">
                                     <p class="text-base leading-6 font-medium text-white">
-                                        Sonali Hirave
+                                        <%= user.id %>
                                     </p>
                                     <p class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
-                                        @ShonaDesign
+                                        @<%= user.username %>
                                     </p>
                                 </div>
                             </div>
@@ -99,6 +100,7 @@
 
                         </div>
                     </div>
+                    <% end %>
                     <hr class="border-gray-800">
                     <!--show more-->
                     <div class="flex">

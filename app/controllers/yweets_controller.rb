@@ -5,6 +5,7 @@ class YweetsController < ApplicationController
   # GET /yweets or /yweets.json
   def index
     @yweets = Yweet.all.includes(:user, :likes)
+    @users = User.all.limit(3)
   end
 
   # GET /yweets/1 or /yweets/1.json
