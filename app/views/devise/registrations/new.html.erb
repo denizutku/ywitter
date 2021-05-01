@@ -48,6 +48,7 @@
       <h1 class="text-xl text-purple-500 font-bold">Register</h1>
       <br/>
       <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: 'Name', class: 'mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500' %>
       <%= f.text_field :username, autofocus: true, autocomplete: "username", placeholder: 'Username', class: 'mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500' %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email', class: 'mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500' %>
       

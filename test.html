@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Addon Index Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+<div class="issue_search" style="margin:0px 50px 0px 50px">
+
+    <h4>Search an issue by name</h4>
+    <div class="ak-field-group">
+        <label htmlFor="issueSearch">Issue name</label>
+        <input type="search" class="ak-field-text" id="issueSearch" name="issueSearch" placeholder="Search"/>
+    </div>
+
+    <div class="dataTable_wrapper" style="margin:10px">
+        <div class="table-responsive">
+            <table class="table table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                <tr>
+                    <th>Issues</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="expense_form" style="margin:35px 50px 0px 50px">
+
+    <form id="expenseForm">
+        <h4>Add new expense</h4>
+        <div class="ak-field-group">
+            <label htmlFor="description">Description</label>
+            <input type="text" class="ak-field-text" id="description" name="description" placeholder="Description"/>
+        </div>
+        <div class="ak-field-group">
+            <label htmlFor="amount">Amount</label>
+            <input type="text" class="ak-field-text" id="amount" name="amount" placeholder="Amount"/>
+        </div>
+        <div class="ak-field-group">
+            <label htmlFor="file">File</label>
+            <input type="file" class="ak-field-file" id="file" name="file" placeholder="File"/>
+        </div>
+        <div class="ak-field-group">
+            <input type="hidden" id="token" th:value="${atlassianConnectToken}">
+            <button class="ak-button ak-button__appearance-primary">Submit</button>
+        </div>
+
+    </form>
+
+    <div class="col-sm-7" id="postResultDiv" style="margin:35px 0px 0px 0px">
+    </div>
+
+    <div class="col-sm-7" style="margin:35px 0px 20px 0px">
+        <button id="getExpenses" class="ak-button ak-button__appearance-primary">Get All Expenses</button>
+
+        <div id="getResultDiv" style="padding:20px 10px 0px 50px">
+            <table class="list-group">
+                <tr>
+                    <th>ID</th>
+                    <th>DESCRIPTION</th>
+                    <th>AMOUNT</th>
+                    <th>FILE</th>
+                    <th>DELETE</th>
+                    <th>EDIT</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="result" style="margin:35px 50px 0px 50px"></div>
+</body>
+
+<script>
+    let url;
+
+$( document ).ready(function() {
+
+    $("#expenseForm").submit(function(event) {
+        event.preventDefault();
+        ajaxPost();
+    });
+
+    function ajaxPost(){
+
+        var fd = new FormData();
+        var files = $('#file')[0].files[0];
+        fd.append('image',files)
+
+        $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            headers: {
+                'Authorization': 'Client-ID 43b4dfd081c3806'
+            },
+            type: 'POST',
+            data: fd,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                url = response.data.link;
+                console.log(url)
+            }
+        });
+    }
+})
+</script>
