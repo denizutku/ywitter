@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   get 'yweets/:id/like', to:  "yweets#like", as: :like_yweet
   get 'yweets/:id/unlike', to: "yweets#unlike", as: :unlike_yweet
+  get 'yweets/:id/reyweet', to:  "yweets#reyweet", as: :reyweet
+  get 'yweets/:id/unreyweet', to: "yweets#unreyweet", as: :unreyweet
   get '/home', to: "yweets#index", as: :logged_in_root
 
 

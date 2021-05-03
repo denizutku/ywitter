@@ -15,5 +15,8 @@ class User < ApplicationRecord
   acts_as_favoritable
   acts_as_favoritor
 
+  has_many :reyweets
+  has_many :yweets, through: :reyweets
+
 
 end

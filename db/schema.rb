@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_02_131245) do
+ActiveRecord::Schema.define(version: 2021_05_03_084332) do
 
   create_table "favorites", force: :cascade do |t|
     t.string "favoritable_type", null: false
@@ -38,21 +38,20 @@ ActiveRecord::Schema.define(version: 2021_05_02_131245) do
     t.index ["yweet_id"], name: "index_likes_on_yweet_id"
   end
 
-  create_table "mentions", force: :cascade do |t|
-    t.string "mention"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "yweet_id"
-    t.index ["user_id"], name: "index_mentions_on_user_id"
-    t.index ["yweet_id"], name: "index_mentions_on_yweet_id"
-  end
-
   create_table "relationships", id: false, force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_id", null: false
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+  end
+
+  create_table "reyweets", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "yweet_id"
+    t.index ["user_id"], name: "index_reyweets_on_user_id"
+    t.index ["yweet_id"], name: "index_reyweets_on_yweet_id"
   end
 
   create_table "users", force: :cascade do |t|

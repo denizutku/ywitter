@@ -1,10 +1,10 @@
 class YweetsController < ApplicationController
-  before_action :set_yweet, only: %i[ show edit update destroy like unlike ]
+  before_action :set_yweet, only: %i[ show edit update destroy like unlike reyweet unreyweet ]
   before_action :authenticate_user!
 
   # GET /yweets or /yweets.json
   def index
-    @yweets = Yweet.all.includes(:user, :likes)
+    @yweets = Yweet.all.includes(:user, :likes, :reyweets)
     @users = User.all.limit(3)
     @yweet = Yweet.new
   end
@@ -67,6 +67,16 @@ class YweetsController < ApplicationController
   def unlike
     like = Like.where(user_id: current_user.id, yweet_id:@yweet.id).first.destroy
     redirect_to root_path, alert: "Unliked!"
+  end
+
+  def reyweet
+    Reyweet.create(user_id: current_user.id, yweet_id:@yweet.id)
+    redirect_to root_path, alert: "Reyweeted!"
+  end
+
+  def unreyweet
+    reyweet = Reyweet.where(user_id: current_user.id, yweet_id:@yweet.id).first.destroy
+    redirect_to root_path, alert: "Unreyweeted!"
   end
 
   private
