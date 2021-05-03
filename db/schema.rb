@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_192716) do
+ActiveRecord::Schema.define(version: 2021_05_02_131245) do
 
   create_table "favorites", force: :cascade do |t|
     t.string "favoritable_type", null: false
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2021_05_01_192716) do
     t.integer "yweet_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
     t.index ["yweet_id"], name: "index_likes_on_yweet_id"
+  end
+
+  create_table "mentions", force: :cascade do |t|
+    t.string "mention"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "yweet_id"
+    t.index ["user_id"], name: "index_mentions_on_user_id"
+    t.index ["yweet_id"], name: "index_mentions_on_yweet_id"
   end
 
   create_table "relationships", id: false, force: :cascade do |t|
@@ -69,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_192716) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.integer "reply_to"
     t.index ["user_id"], name: "index_yweets_on_user_id"
   end
 
