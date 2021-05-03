@@ -1,30 +1,3 @@
-<%
-=begin%>
- <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>username:</strong>
-  <%= @user.username %>
-
-  <strong>followers:</strong>
-  <%= @user.favoritors.size %>
-  <strong>followed:</strong>
-  <%= @user.all_favorited.size %>
-
-  <% if user_signed_in? %>
-    <% if current_user == @user %>
-    <% else %>
-      <% if current_user.favorited?(@user) %>
-        <p>Already followed!</p>
-      <% else %>
-        <%= link_to 'Follow', follow_user_path, class: "" %>
-      <% end %>
-    <% end %>
-  <% end %>
-</p> 
-<%
-=end%>
-
 <div>
     <div class="flex justify-start">
         <div class="px-4 py-2 mx-2">
@@ -69,12 +42,23 @@
                     </div>
                 </div>
             </div>
+
             <!-- Follow Button -->
             <div class="flex flex-col text-right">
                 <button class="flex justify-center  max-h-max whitespace-nowrap focus:outline-none  focus:ring  rounded max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 hover:border-blue-800 flex items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto">
-                    Edit Profile
+                    <% if current_user == @user %>
+                        Edit Profile
+                    <% else %>
+                        <% if current_user.favorited?(@user) %>
+                            <%= link_to 'Unfollow', unfollow_user_path, class: "" %>
+                        <% else %>
+                            <%= link_to 'Follow', follow_user_path, class: "" %>
+                        <% end %>
+                    <% end %>
                 </button>
             </div>
+
+
         </div>
 
         <!-- Profile info -->

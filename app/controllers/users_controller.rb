@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: %i[ show follow ]
+    before_action :set_user, only: %i[ show follow unfollow ]
 
     def show
         @yweets = Yweet.where(user_id:params[:id]).includes(:user, :likes)
@@ -8,6 +8,11 @@ class UsersController < ApplicationController
 
     def follow
         current_user.favorite(@user)
+        redirect_to get_user_profile_path, alert: "Followed!"
+    end
+
+    def unfollow
+        current_user.unfavorite(@user)
         redirect_to get_user_profile_path, alert: "Followed!"
     end
 
