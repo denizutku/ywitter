@@ -11,6 +11,9 @@ class YweetsController < ApplicationController
 
   # GET /yweets/1 or /yweets/1.json
   def show
+    @users = User.all.limit(3)
+    @yweets = Yweet.all.includes(:user, :likes, :reyweets)
+    @mentions = @yweets.where(reply_to:@yweet.id)
   end
 
   # GET /yweets/new
