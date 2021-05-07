@@ -7,4 +7,7 @@ class Yweet < ApplicationRecord
 
     validates_presence_of :yweet
 
+    has_many :yweet_hashtags
+    has_many :hashtags, through: :yweet_hashtags
+
 end

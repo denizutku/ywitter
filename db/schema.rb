@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_084332) do
+ActiveRecord::Schema.define(version: 2021_05_07_192316) do
 
   create_table "favorites", force: :cascade do |t|
     t.string "favoritable_type", null: false
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 2021_05_03_084332) do
     t.index ["favoritor_id", "favoritor_type"], name: "fk_favorites"
     t.index ["favoritor_type", "favoritor_id"], name: "index_favorites_on_favoritor"
     t.index ["scope"], name: "index_favorites_on_scope"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "likes", force: :cascade do |t|
@@ -71,6 +77,15 @@ ActiveRecord::Schema.define(version: 2021_05_03_084332) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "yweet_hashtags", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "hashtag_id"
+    t.integer "yweet_id"
+    t.index ["hashtag_id"], name: "index_yweet_hashtags_on_hashtag_id"
+    t.index ["yweet_id"], name: "index_yweet_hashtags_on_yweet_id"
   end
 
   create_table "yweets", force: :cascade do |t|
