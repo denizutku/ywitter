@@ -1,7 +1,7 @@
 <ul class="list-none">
     <% @yweets.each do |yweet|%>
       <% if yweet.reply_to.nil? %>
-        <li>
+        <li onclick="location.href = '/yweets/<%= yweet.id %>'">
             <!--second tweet-->
             <article class="hover:bg-gray-800 transition duration-350 ease-in-out">
                 <div class="flex flex-shrink-0 p-4 pb-0">
