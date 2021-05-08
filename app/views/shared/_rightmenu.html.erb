@@ -39,11 +39,12 @@
                     <hr class="border-gray-800">
 
                     <!--first trending tweet-->
+                    <% @trends.each do |trend| %>
                     <div class="flex">
                         <div class="flex-1">
-                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">1 . Trending</p>
-                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#Microsoft363</h2>
-                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,466 Tweets</p>
+                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">Trending</p>
+                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#<%= trend.name %></h2>
+                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400"><%= trend.taggings_count %> Yweets</p>
 
                         </div>
                         <div class="flex-1 px-4 py-2 m-2">
@@ -55,6 +56,8 @@
                         </div>
                     </div>
                     <hr class="border-gray-800">
+
+                    <% end %>
 
                     <!--show more-->
 

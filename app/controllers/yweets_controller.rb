@@ -7,6 +7,7 @@ class YweetsController < ApplicationController
     @yweets = Yweet.all.includes(:user, :likes, :reyweets)
     @users = User.all.limit(3)
     @yweet = Yweet.new
+    @trends = ActsAsTaggableOn::Tag.most_used(5)
   end
 
   # GET /yweets/1 or /yweets/1.json
@@ -14,6 +15,7 @@ class YweetsController < ApplicationController
     @users = User.all.limit(3)
     @yweets = Yweet.all.includes(:user, :likes, :reyweets)
     @replies = Yweet.where(reply_to:@yweet.id)
+    @trends = ActsAsTaggableOn::Tag.most_used(5)
   end
 
   # GET /yweets/new
@@ -90,6 +92,6 @@ class YweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def yweet_params
-      params.require(:yweet).permit(:yweet, :user_id, :username)
+      params.require(:yweet).permit(:yweet, :user_id, :username, :tag_list)
     end
 end

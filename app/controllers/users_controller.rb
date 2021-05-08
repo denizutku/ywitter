@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     def show
         @yweets = Yweet.where(user_id:params[:id]).includes(:user, :likes)
         @users = User.all.limit(3)
+        @trends = ActsAsTaggableOn::Tag.most_used(5)
     end
 
     def follow

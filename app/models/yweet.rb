@@ -10,8 +10,7 @@ class Yweet < ApplicationRecord
 
     validates_presence_of :yweet
 
-    has_many :yweet_hashtags
-    has_many :hashtags, through: :yweet_hashtags
+    acts_as_taggable_on :tags
 
     def extract_hashtags
         yweet.to_s.scan(/#\w+/).map{|name| name.gsub("#", "")}
@@ -19,7 +18,8 @@ class Yweet < ApplicationRecord
 
     def create_hashtags
         extract_hashtags.each do |name|
-            hashtags.create(name: name)
+            tag_list.add(name)
+            save
         end
     end
 
