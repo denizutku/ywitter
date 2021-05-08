@@ -1,7 +1,7 @@
 <ul class="list-none">
     <% @yweets.each do |yweet|%>
       <% if yweet.reply_to.nil? %>
-        <li onclick="location.href = '/yweets/<%= yweet.id %>'">
+        <li>
             <!--second tweet-->
             <article class="hover:bg-gray-800 transition duration-350 ease-in-out">
                 <div class="flex flex-shrink-0 p-4 pb-0">
@@ -20,14 +20,17 @@
                 </div>
 
                 <div class="pl-16">
-                    <p class="text-base width-auto font-medium text-white flex-shrink">
-                        <%= yweet.yweet %>
-                    </p>
 
-                    <div class="md:flex-shrink pr-6 pt-3">
-                        <div class="bg-cover bg-no-repeat bg-center rounded-lg w-full">
-                    </div>
-                    </div>
+                    <a href="/yweets/<%= yweet.id %>" class="flex-shrink-0 group block">
+                        <p class="text-base width-auto font-medium text-white flex-shrink">
+                            <%= yweet.yweet %>
+                        </p>
+
+                        <div class="md:flex-shrink pr-6 pt-3">
+                            <div class="bg-cover bg-no-repeat bg-center rounded-lg w-full">
+                        </div>
+                        </div>
+                    </a>
 
 
                     <div class="flex items-center py-4">

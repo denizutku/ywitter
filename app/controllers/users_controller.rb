@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     before_action :set_user, only: %i[ show follow unfollow ]
 
     def show
-        @yweets = Yweet.where(user_id:params[:id]).includes(:user, :likes)
+        @yweets = Yweet.where(user_id:params[:id]).order('created_at DESC').includes(:user, :likes)
         @users = User.all.limit(3)
         @trends = ActsAsTaggableOn::Tag.most_used(5)
     end

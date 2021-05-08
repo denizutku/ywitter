@@ -4,7 +4,7 @@ class YweetsController < ApplicationController
 
   # GET /yweets or /yweets.json
   def index
-    @yweets = Yweet.all.includes(:user, :likes, :reyweets)
+    @yweets = Yweet.where(user_id:current_user.favorited_users).order('created_at DESC').includes(:user, :likes, :reyweets)
     @users = User.all.limit(3)
     @yweet = Yweet.new
     @trends = ActsAsTaggableOn::Tag.most_used(5)
@@ -13,8 +13,7 @@ class YweetsController < ApplicationController
   # GET /yweets/1 or /yweets/1.json
   def show
     @users = User.all.limit(3)
-    @yweets = Yweet.all.includes(:user, :likes, :reyweets)
-    @replies = Yweet.where(reply_to:@yweet.id)
+    @replies = Yweet.where(reply_to:@yweet.id).order('created_at DESC')
     @trends = ActsAsTaggableOn::Tag.most_used(5)
   end
 
