@@ -5,6 +5,7 @@ class YweetsController < ApplicationController
   # GET /yweets or /yweets.json
   def index
     @yweets = Yweet.where(user_id:current_user.favorited_users).order('created_at DESC').includes(:user, :likes, :reyweets)
+    @replies = Yweet.all.where(reply_to: !nil)
     @users = User.all.limit(3)
     @yweet = Yweet.new
     @trends = ActsAsTaggableOn::Tag.most_used(5)
@@ -12,9 +13,11 @@ class YweetsController < ApplicationController
 
   # GET /yweets/1 or /yweets/1.json
   def show
+    @yweets = Yweet.all
     @users = User.all.limit(3)
     @replies = Yweet.where(reply_to:@yweet.id).order('created_at DESC')
     @trends = ActsAsTaggableOn::Tag.most_used(5)
+    @yweet_reply = Yweet.new
   end
 
   # GET /yweets/new
@@ -91,6 +94,6 @@ class YweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def yweet_params
-      params.require(:yweet).permit(:yweet, :user_id, :username, :tag_list)
+      params.require(:yweet).permit(:yweet, :user_id, :username, :tag_list, :reply_to)
     end
 end

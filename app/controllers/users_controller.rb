@@ -5,6 +5,7 @@ class UsersController < ApplicationController
         @yweets = Yweet.where(user_id:params[:id]).order('created_at DESC').includes(:user, :likes)
         @users = User.all.limit(3)
         @trends = ActsAsTaggableOn::Tag.most_used(5)
+        @replies = Yweet.all.where(reply_to: !nil)
     end
 
     def follow

@@ -48,6 +48,10 @@
     <%= form.hidden_field :user_id, value: current_user.id %>
   </div>
 
+  <div class="field">
+    <%= form.hidden_field :reply_to, value: @yweet.id %>
+  </div>
+
 
   <!--middle creat tweet below icons-->
   <div class="flex">
