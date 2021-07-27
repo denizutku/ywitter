@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_05_08_082926) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "favorites", force: :cascade do |t|
     t.string "favoritable_type", null: false
-    t.integer "favoritable_id", null: false
+    t.bigint "favoritable_id", null: false
     t.string "favoritor_type", null: false
-    t.integer "favoritor_id", null: false
+    t.bigint "favoritor_id", null: false
     t.string "scope", default: "favorite", null: false
     t.boolean "blocked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -39,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_082926) do
   end
 
   create_table "relationships", id: false, force: :cascade do |t|
-    t.integer "follower_id", null: false
-    t.integer "followed_id", null: false
+    t.bigint "follower_id", null: false
+    t.bigint "followed_id", null: false
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   end
@@ -54,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_082926) do
     t.index ["yweet_id"], name: "index_reyweets_on_yweet_id"
   end
 
-  create_table "taggings", force: :cascade do |t|
+  create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
     t.integer "taggable_id"
@@ -73,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_082926) do
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
-  create_table "tags", force: :cascade do |t|
+  create_table "tags", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -90,7 +93,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_082926) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "username"
-    t.string "image_url"
+    t.string "image_url", default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvd_qqLUun_iSnWsdj3dWww3gp6EoTrh9t_PjPIvWdS_SKmgxA0zfJBOr-BZlQr0fs2F8&usqp=CAU"
     t.string "name"
     t.string "biography"
     t.string "website"

@@ -4,7 +4,7 @@ class YweetsController < ApplicationController
 
   # GET /yweets or /yweets.json
   def index
-    @yweets = Yweet.where(user_id:current_user.favorited_users).order('created_at DESC').includes(:user, :likes, :reyweets)
+    @yweets = Yweet.where(user_id:current_user.favorited_users, user_id:current_user.id).order('created_at DESC').includes(:user, :likes, :reyweets)
     @replies = Yweet.all.where(reply_to: !nil)
     @users = User.all.limit(3)
     @yweet = Yweet.new
