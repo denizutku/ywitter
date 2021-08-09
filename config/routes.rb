@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  get 'messages/index'
+  get 'conversations/index'
   get 'index/home'
   devise_for :users, :controllers => { registrations: 'registrations' }, skip: [:sessions]
   resources :yweets
+
+  resources :conversations, only: [:index, :create] do
+    resources :messages, only: [:index, :create]
+  end
 
   root to: "index#home"
 
