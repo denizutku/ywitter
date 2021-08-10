@@ -20,6 +20,11 @@ class ConversationsController < ApplicationController
     redirect_to conversation_messages_path(@conversation)
   end
 
+  def search
+    @parameter = params[:search].downcase
+    @users = User.all.where("lower(username) like :search", search: "%#{@parameter}%")
+  end
+
   private
     def conversation_params
       params.permit(:sender_id, :receiver_id)

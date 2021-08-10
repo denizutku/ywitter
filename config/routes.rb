@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'messages/index'
-  get 'conversations/index'
   get 'index/home'
   devise_for :users, :controllers => { registrations: 'registrations' }, skip: [:sessions]
   resources :yweets
@@ -10,6 +8,9 @@ Rails.application.routes.draw do
   end
 
   root to: "index#home"
+
+  get '/conversations/search', to: "conversations#search", as: :search_conversation
+
 
 
   devise_scope :user do
