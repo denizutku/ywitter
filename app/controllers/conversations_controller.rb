@@ -6,8 +6,7 @@ class ConversationsController < ApplicationController
   end
 
   def index
-    @users = User.where.not(id: current_user.id)
-    @conversations = Conversation.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+    @conversations = Conversation.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id) #except .not("sender_id = ? AND receiver_id = ?", current_user.id, current_user.id)
   end
 
   def create
