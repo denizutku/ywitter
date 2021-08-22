@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @conversation.messages
-    @user = User.find(@conversation.receiver_id) #this has to be fixed to select user properly.
+    @user = User.find(current_user.id.eql?(@conversation.receiver_id) ? @conversation.sender_id : @conversation.receiver_id) #this has to be fixed to select user properly.
                                                   # now only selects receiver user...
 
     @messages.where("user_id != ? AND read = ?", current_user.id, false).update_all(read: true)
