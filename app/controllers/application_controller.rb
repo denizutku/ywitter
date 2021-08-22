@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+
   layout :layout
 
   def after_sign_in_path_for(resource)

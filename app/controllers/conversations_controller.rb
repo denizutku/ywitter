@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  before_action :authenticate_user!
 
   before_action do
     @users = User.all.limit(3)

@@ -1,10 +1,12 @@
 class YweetsController < ApplicationController
-  before_action :set_yweet, only: %i[ show edit update destroy like unlike reyweet unreyweet ]
   before_action :authenticate_user!
+  before_action :set_yweet, only: %i[ show edit update destroy like unlike reyweet unreyweet ]
 
   # GET /yweets or /yweets.json
   def index
-    @yweets = Yweet.where(user_id:current_user.favorited_users, user_id:current_user.id).order('created_at DESC').includes(:user, :likes, :reyweets)
+    @yweets = Yweet.where(user_id: current_user.favorited_users.pluck(:id).push(current_user.id))
+                   .order('created_at DESC')
+                   .includes(:user, :likes, :reyweets)
     @replies = Yweet.all.where(reply_to: !nil)
     @users = User.all.limit(3)
     @yweet = Yweet.new

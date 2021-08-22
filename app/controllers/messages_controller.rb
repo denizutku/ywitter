@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
+
 
   before_action do
     @conversation = Conversation.find(params[:conversation_id])
@@ -8,10 +10,10 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @conversation.messages
-    @user = @messages.where("user_id != ?", current_user.id).first.user
+    @user = User.find(@conversation.receiver_id) #this has to be fixed to select user properly.
+                                                  # now only selects receiver user...
 
     @messages.where("user_id != ? AND read = ?", current_user.id, false).update_all(read: true)
-
     @message = @conversation.messages.new
   end
 
